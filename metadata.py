@@ -61,7 +61,7 @@ def metadata(image):
     type_file = imghdr.what(image)
 
     if str(type_file) == 'None':
-        print(Fore.RED + 'File is not an image. Only images should be in the folder.')
+        print(Fore.RED + str(image) + ' - is not an image. Only images should be in the folder.')
         input('PRESS ENTER TO EXIT...')
         exit()
 
