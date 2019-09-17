@@ -37,7 +37,7 @@ print('')
 print(Fore.GREEN +'#####################################################################')
 print(Fore.GREEN +'#####################################################################')
 time.sleep(2)
-print(Fore.RED + '')
+print('')
 input('PRESS ENTER TO CONTINUE...')
 
 try:
@@ -55,6 +55,10 @@ def metadata(image):
 
     #type file
     type_file = imghdr.what(image)
+    if str(type_file) == 'None':
+        print(Fore.RED + 'File is not an image. Only images should be in the folder.')
+        input('PRESS ENTER TO EXIT...')
+        exit()
     print(Fore.GREEN + 'Type file:               {type_file}'.format(type_file=type_file))
 
     #MIME Type
@@ -69,16 +73,9 @@ def metadata(image):
     print(Fore.GREEN + '                         {file_size_MB} MB'.format(file_size_MB=file_size_MB))
 
     #Image Size
-    try:
-        with Image.open(image) as img:
-            width, height = img.size
-            print(Fore.GREEN + 'Image size:              {width} x {height}'.format(width=width, height=height))
-    except OSError:
-        print('')
-        print(Fore.RED + 'File is not an image. Only images should be in the folder.')
-        input('PRESS ENTER TO EXIT...')
-        print('')
-        exit()
+    with Image.open(image) as img:
+        width, height = img.size
+        print(Fore.GREEN + 'Image size:              {width} x {height}'.format(width=width, height=height))
 
     #create file 
     create_file_1970 = os.path.getctime(image) # время создания файла
@@ -100,8 +97,10 @@ def metadata(image):
         print(Fore.GREEN + 'Brand of camera:         ' + img_exif_dict[42035])
         print(Fore.GREEN + 'Camera Lens Model:       ' + img_exif_dict[42036])
     else:
-        print('')
-        print(Fore.RED + 'File does not have device and camera data.')
+        print(Fore.GREEN + 'Device model:            ' + Fore.RED + 'none' )
+        print(Fore.GREEN + 'Software:                ' + Fore.RED + 'none' )
+        print(Fore.GREEN + 'Brand of camera:         ' + Fore.RED + 'none' )
+        print(Fore.GREEN + 'Camera Lens Model:       ' + Fore.RED + 'none' )
 
     #GPS
     img = Image.open(image)
@@ -119,7 +118,8 @@ def metadata(image):
         print(Fore.GREEN + 'GPS Latitude:            {lat}'.format(lat=lat))
         print(Fore.GREEN + 'GPS Longitude:           {lon}'.format(lon=lon))
     else:
-        print(Fore.RED + 'File do not have GPS data')
+        print(Fore.GREEN + 'GPS Latitude:            ' + Fore.RED + 'none' )
+        print(Fore.GREEN + 'GPS Longitude:           ' + Fore.RED + 'none' )
 
 path = os.path.abspath(os.path.dirname(__file__))
 my_dir = os.path.basename(__file__)
@@ -129,6 +129,6 @@ for file in os.listdir(path):
         continue
     else:
         metadata(file)
-print('')
+print(Fore.GREEN + '')
 input('PRESS ENTER TO EXIT...')
 print('')
