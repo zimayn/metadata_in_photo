@@ -52,13 +52,19 @@ def metadata(image):
     
     #Name file 
     print(Fore.GREEN + 'File name:               ' + file)
+    if os.path.isdir(image):
+        print(Fore.RED + image + ' - is folder. In the folder with the script, leave only the images.')
+        input('PRESS ENTER TO EXIT...')
+        exit()
 
     #type file
     type_file = imghdr.what(image)
+
     if str(type_file) == 'None':
         print(Fore.RED + 'File is not an image. Only images should be in the folder.')
         input('PRESS ENTER TO EXIT...')
         exit()
+
     print(Fore.GREEN + 'Type file:               {type_file}'.format(type_file=type_file))
 
     #MIME Type
@@ -125,7 +131,7 @@ path = os.path.abspath(os.path.dirname(__file__))
 my_dir = os.path.basename(__file__)
 
 for file in os.listdir(path):
-    if file == my_dir:
+    if file == my_dir or file == 'metadata.exe':
         continue
     else:
         metadata(file)
