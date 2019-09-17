@@ -36,34 +36,40 @@ print('         ---------------------------------------------------')
 print('')
 print(Fore.GREEN +'#####################################################################')
 print(Fore.GREEN +'#####################################################################')
-#time.sleep(2)
+time.sleep(2)
 print(Fore.RED + '')
 input('PRESS ENTER TO CONTINUE...')
 print('')
+
+try:
+    os.remove('README.md')
+except FileNotFoundError:
+    print('')
 
 def metadata(image):
     print('')
     print(Fore.GREEN + '--------------------------------------------------------------------')
     print('')
-	#Name file 
+    
+    #Name file 
     print(Fore.GREEN + 'File name:               ' + file)
 
-	#type file
+    #type file
     type_file = imghdr.what(image)
     print(Fore.GREEN + 'Type file:               {type_file}'.format(type_file=type_file))
 
-	#MIME Type
+    #MIME Type
     mime_type = mimetypes.MimeTypes().guess_type(image)[0]
     print(Fore.GREEN + 'MIME type:               {mime_type}'.format(mime_type=mime_type))
 
-	#size 
+    #size 
     file_size_B = os.path.getsize(image)
     file_size_Kb = file_size_B / 1000 
     file_size_MB = file_size_Kb / 1000 
     print(Fore.GREEN + 'File size:               {file_size_Kb} Kb'.format(file_size_Kb=file_size_Kb))
     print(Fore.GREEN + '                         {file_size_MB} MB'.format(file_size_MB=file_size_MB))
 
-	#Image Size
+    #Image Size
     try:
         with Image.open(image) as img:
             width, height = img.size
@@ -82,7 +88,6 @@ def metadata(image):
     edit_file_1970 = os.path.getmtime(image) # время последнего изменения файла
     edit_file = datetime.fromtimestamp(edit_file_1970).strftime('%Y-%m-%d %H:%M:%S')
     print(Fore.GREEN + 'File has been modified:  {edit_file}'.format(edit_file=edit_file))
-
 
     #Make
     img = Image.open(image)
