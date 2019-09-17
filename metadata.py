@@ -123,3 +123,6 @@ for file in os.listdir(path):
         continue
     else:
         metadata(file)
+print('')
+input('PRESS ENTER TO EXIT...')
+print('')
