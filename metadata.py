@@ -39,7 +39,6 @@ print(Fore.GREEN +'#############################################################
 time.sleep(2)
 print(Fore.RED + '')
 input('PRESS ENTER TO CONTINUE...')
-print('')
 
 try:
     os.remove('README.md')
@@ -77,6 +76,8 @@ def metadata(image):
     except OSError:
         print('')
         print(Fore.RED + 'File is not an image. Only images should be in the folder.')
+        input('PRESS ENTER TO EXIT...')
+        print('')
         exit()
 
     #create file 
